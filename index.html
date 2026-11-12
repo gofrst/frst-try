@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>frst try.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #141414; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #fafafa; }
+  }
+  html, body { background: transparent; }
+  body {
+    margin: 0;
+    padding: 12px;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+  .banner {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .wordmark {
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    text-transform: lowercase;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .footnote {
+    margin-left: 8px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 300;
+    color: #141414;
+    background: hsl(57 100% 73%);
+    transition: opacity 400ms ease;
+    white-space: nowrap;
+  }
+  .footnote.hidden { opacity: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    .footnote { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <span class="wordmark">frst try.</span>
+  <span class="footnote" id="footnote" aria-live="polite"></span>
+</div>
+<script>
+  (function () {
+    var notes = ["*it was not", "*attempt 37", "*technically", "*results may vary", "*works on my machine"];
+    var colours = ["hsl(57 100% 73%)", "hsl(148 100% 73%)", "hsl(185 100% 73%)", "hsl(332 100% 73%)", "hsl(4 100% 73%)"];
+    var el = document.getElementById("footnote");
+    var i = Math.floor(Math.random() * notes.length);
+    var c = 0;
+    var FADE = 400;
+
+    function show() {
+      el.textContent = notes[i];
+      el.style.background = colours[c];
+    }
+
+    show();
+    setInterval(function () {
+      el.classList.add("hidden");
+      setTimeout(function () {
+        i = (i + 1) % notes.length;
+        c = (c + 1) % colours.length;
+        show();
+        el.classList.remove("hidden");
+      }, FADE);
+    }, 4000);
+  })();
+</script>
+</body>
+</html>
